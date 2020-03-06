@@ -1,12 +1,13 @@
 <template>
 <!-- <div>fdfd</div> -->
-  <div class="recommand">
+  <div class="singers">
     <div class="wrapper" ref="wrapper">
       <div class="content">
         <div class="singer-list" v-for="(item,index) in singers" :key="index" :ref="item.Findex">
           <p>{{item.Findex}}</p>
           <ul>
-            <li v-for="(item,index) in item.list" :key="index" 
+            <li v-for="(item,index) in item.list" :key="index"
+            @click='godetail()'
             >
               <span>
                 <img :src="item.author" alt />
@@ -27,6 +28,12 @@
         >{{item}}</li>
       </ul>
     </div>
+    <transition
+    center-active-class='animated slideInLeft'
+    leave-active-class='animated slideOutLeft'
+    >
+    <router-view></router-view>
+    </transition>>
   </div>
 </template>
 <script>
@@ -43,15 +50,20 @@ export default {
   },
   computed: {
     quicklist() {
-      let result = this.singers.map(item => item.Findex);
-      return result;
+       let result = this.singers.map((item)=>{
+        return item.Findex
+      })
+      return result  
     }
   },
   methods: {
-    // godetail(){
-    //   // console.log('跳到详情页')  
-    //   this.$router.push('/singer/detail')
-    // },
+    //  跳到详情页
+    godetail(){
+      console.log('跳到详情页')  
+      this.$router.push('singers/detail')
+      console.log(this.$route);
+      
+    },
     //页面滚动
     initbs() {
       this.Bs = new BS(this.$refs.wrapper, { probeType: 3 ,click:true});
@@ -112,8 +124,9 @@ export default {
     this.touch = { y: 0 };
     getsingerdata().then(res => {
       let data = res.data.list;
-      // console.log(data)
+     
       this.singers = dealdata(data);
+       console.log(this.singers)
       this.$nextTick(() => {
         // console.log("滚动");
         this.initbs();
@@ -160,7 +173,7 @@ export default {
   position: fixed;
   top: 160px;
   right: 0;
-  z-index: 2;
+  // z-index: 2;
   ul {
     li {
       text-align: center;
