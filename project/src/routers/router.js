@@ -8,15 +8,11 @@ import Detail from '../components/detail/detail.vue'
 Vue.use(VueRouter)
 const router = new VueRouter({
     routes:[
-        // {
-        //     path:'/singer',
-        //     component:Singer,
-        // },
         {
             path:'/singers',
             component:Singers,
             children:[{
-                path:'detail',
+                path:':Fsinger_mid',
                 name:'detail',
                 component:Detail
             },

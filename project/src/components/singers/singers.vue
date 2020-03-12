@@ -7,7 +7,7 @@
           <p>{{item.Findex}}</p>
           <ul>
             <li v-for="(item,index) in item.list" :key="index"
-            @click='godetail()'
+            @click='godetail(item.Fsinger_mid)'
             >
               <span>
                 <img :src="item.author" alt />
@@ -29,8 +29,8 @@
       </ul>
     </div>
     <transition
-    center-active-class='animated slideInLeft'
-    leave-active-class='animated slideOutLeft'
+    enter-active-class='animated slideInRight'
+    leave-active-class='animated slideOuRight'
     >
     <router-view></router-view>
     </transition>>
@@ -58,10 +58,10 @@ export default {
   },
   methods: {
     //  跳到详情页
-    godetail(){
-      console.log('跳到详情页')  
-      this.$router.push('singers/detail')
-      console.log(this.$route);
+    godetail(Fsinger_mid){
+      // console.log(Fsinger_mid)  
+      this.$router.push(`/singers/${Fsinger_mid}`)
+      // console.log(this.$route);
       
     },
     //页面滚动
@@ -94,6 +94,7 @@ export default {
       // console.log(index);
       let dom = this.$refs[item][0];
       // console.log(dom);
+      // 跳转到指定元素
       this.Bs.scrollToElement(dom);
     },
     //按下
@@ -117,16 +118,15 @@ export default {
     },
     // 抬起
     touchend(e) {},
-    // 跳到详情页
+    
     
   },
   created() { 
     this.touch = { y: 0 };
     getsingerdata().then(res => {
       let data = res.data.list;
-     
       this.singers = dealdata(data);
-       console.log(this.singers)
+      //  console.log(this.singers)
       this.$nextTick(() => {
         // console.log("滚动");
         this.initbs();
@@ -137,21 +137,24 @@ export default {
 </script>
 <style lang="less" scoped>
 @import "../../style/index.less";
-.wrapper {
+.singers{
+  height: 100%;
+  .wrapper {
   position: fixed;
   top: 88px;
   left: 0;
   right: 0;
   bottom: 0;
-  // z-index: 2;
+  color: @colorB;
+  background: @backcolor;
   overflow: hidden;
   .content {
-    
     .singer-list {
       p {
-        background: rgba(0, 0, 0, 0.2);
+        background:@backcolor2;
       }
       ul {
+      
         padding: 0 30px;
         li {
           padding: 10px 0;
@@ -173,7 +176,7 @@ export default {
   position: fixed;
   top: 160px;
   right: 0;
-  // z-index: 2;
+ color: @colorB;
   ul {
     li {
       text-align: center;
@@ -186,4 +189,6 @@ export default {
     }
   }
 }
+}
+
 </style>

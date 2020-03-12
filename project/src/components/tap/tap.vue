@@ -24,15 +24,14 @@ export default {};
 #tap {
   height: 44px;
   display: flex;
-  background: red;
+  background: @backcolor;
   justify-content: space-around;
+  color: @colorB;
   div {
+    
     text-align: center;
     line-height: 44px;
     font-size: @fs-s;
-    span {
-      vertical-align: top;
-    }
   }
   .active {
     color: @colorA;

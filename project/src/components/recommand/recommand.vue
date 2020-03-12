@@ -53,6 +53,10 @@ export default {
     height: 30px;
     text-align: center;
     line-height: 30px;
+    background:@backcolor2;
+
+
+    
   }
   .wrapper {
     position: fixed;

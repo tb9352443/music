@@ -11,6 +11,7 @@ export default {};
 .headertop {
   height: 44px;
   text-align: center;
+  background: @backcolor;
   span {
     display: inline-block;
     vertical-align: top;
